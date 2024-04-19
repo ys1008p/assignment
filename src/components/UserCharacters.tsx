@@ -16,7 +16,6 @@ export default function UserCharacters(
     selectedCharacter,
   }: UserCharacterProps,
 ) {
-  console.log(userCharacters);
   return (
     <div>
       <div>유저 캐릭터 목록</div>

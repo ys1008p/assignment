@@ -32,12 +32,12 @@ export default function ClothManager({ id }: ClothManagerProps) {
   });
 
   const isLoading = isLoadingClothInventory && isLoadingExcelCloth && isLoadingUserCharacters;
-
+  console.log(clothInventory);
   return (
     isLoading ? null :
       <div className="flex justify-around">
         <UserCharacters userCharacters={userCharacters} handleSelectedCharacter={handleSelectedCharacter} selectedCharacter={selectedCharacter} />
-        <ClothsProvider />
+        <ClothsProvider excelCloth={excelCloth} selectedCharacter={selectedCharacter} id={id} />
         <ClothInventory />
       </div>
   );

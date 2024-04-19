@@ -48,6 +48,13 @@ export interface ClothInventoryDto {
   excelCloth: ExcelClothDto;
 }
 
+export interface CreateClothDto {
+  characteruid: number; //bigint
+  employerid: number; //bigint
+  clothno: number; //bigint
+  channel: number;
+}
+
 export const getUserData = async (userId: string) => {
   const response = await axios.get(API_ROUTES.USER_BY_ID(userId));
   return response.data as UserDto;
@@ -62,3 +69,7 @@ export const getClothInventory = async (employerId: number) => {
   const response = await axios.get(API_ROUTES.USER_CLOTHS_BY_ID(employerId));
   return response.data as ClothInventoryDto;
 };
+
+export const postUserCloth = async (data:CreateClothDto) => {
+  await axios.post(API_ROUTES.CREATE_USER_CLOTH, data)
+}
