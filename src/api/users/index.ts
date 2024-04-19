@@ -1,4 +1,4 @@
-import { API_ROUTES } from "@/constant/routes";
+import { API_ROUTES } from "@/constant/ROUTES";
 import axios from "axios";
 import { ExcelClothDto } from "@/api/excel";
 
@@ -67,7 +67,7 @@ export const getUserCharacters = async (employerId: number) => {
 
 export const getClothInventory = async (employerId: number) => {
   const response = await axios.get(API_ROUTES.USER_CLOTHS_BY_ID(employerId));
-  return response.data as ClothInventoryDto;
+  return response.data as ClothInventoryDto[];
 };
 
 export const postUserCloth = async (data:CreateClothDto) => {

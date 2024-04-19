@@ -1,4 +1,4 @@
-import { API_ROUTES } from "@/constant/routes";
+import { API_ROUTES } from "@/constant/ROUTES";
 import axios from "axios";
 
 export interface ExcelClothDto {
