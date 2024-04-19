@@ -3,14 +3,20 @@ import { getExcelClothData } from "@/api/excel";
 import { useRouter } from "next/router";
 import { CharacterDto, getUserCharacters } from "@/api/users";
 
-export default function UserCharacters() {
-  const router = useRouter();
-  const  {id} = router.query
-  const { data: userCharacters } = useQuery({
-    queryKey: ["userCharacters"],
-    queryFn: () => getUserCharacters(Number(id)),
-  });
+type UserCharacterProps = {
+  userCharacters: CharacterDto[] | undefined;
+  handleSelectedCharacter: (id: BigInt) => void;
+  selectedCharacter: BigInt;
+}
 
+export default function UserCharacters(
+  {
+    userCharacters,
+    handleSelectedCharacter,
+    selectedCharacter,
+  }: UserCharacterProps,
+) {
+  console.log(userCharacters);
   return (
     <div>
       <div>유저 캐릭터 목록</div>
@@ -19,7 +25,11 @@ export default function UserCharacters() {
           userCharacters?.map((item: CharacterDto) => {
             return (
               <li key={item.id}>
-                <span>{item.excelBaller.name}</span>
+                <span
+                  onClick={() => handleSelectedCharacter(BigInt(item.characterindex))}
+                  className={selectedCharacter === BigInt(item.characterindex) ? `text-red-500` : `text-black`}>
+                  {item.excelBaller.name}
+                </span>
               </li>
             );
           })

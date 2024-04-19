@@ -4,34 +4,41 @@ import { useQuery } from "react-query";
 import { getClothInventory, getUserCharacters } from "@/api/users";
 import ClothInventory from "@/components/ClothInventory";
 import { getExcelClothData } from "@/api/excel";
+import { useState } from "react";
 
 type ClothManagerProps = {
   id: string;
 }
 
 export default function ClothManager({ id }: ClothManagerProps) {
+  const [selectedCharacter, setSelectedCharacter] = useState<BigInt>(BigInt(0));
+  const handleSelectedCharacter = (id: BigInt) => {
+    setSelectedCharacter(id);
+  };
 
-  const { data: userCharacters } = useQuery({
+  const { data: userCharacters, isLoading: isLoadingUserCharacters } = useQuery({
     queryKey: ["userCharacters"],
     queryFn: () => getUserCharacters(Number(id)),
   });
 
-  const { data: excelCloth } = useQuery({
+  const { data: excelCloth, isLoading: isLoadingExcelCloth } = useQuery({
     queryKey: ["excelCloth"],
     queryFn: () => getExcelClothData(),
   });
 
-  const { data: clothInventory } = useQuery({
+  const { data: clothInventory, isLoading: isLoadingClothInventory } = useQuery({
     queryKey: ["clothInventory"],
     queryFn: () => getClothInventory(Number(id)),
   });
 
-console.log(clothInventory);
+  const isLoading = isLoadingClothInventory && isLoadingExcelCloth && isLoadingUserCharacters;
+
   return (
-    <div className="flex justify-around">
-      <UserCharacters />
-      <ClothsProvider />
-      <ClothInventory />
-    </div>
+    isLoading ? null :
+      <div className="flex justify-around">
+        <UserCharacters userCharacters={userCharacters} handleSelectedCharacter={handleSelectedCharacter} selectedCharacter={selectedCharacter} />
+        <ClothsProvider />
+        <ClothInventory />
+      </div>
   );
 }
