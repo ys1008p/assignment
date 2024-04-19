@@ -70,6 +70,10 @@ export const getClothInventory = async (employerId: number) => {
   return response.data as ClothInventoryDto[];
 };
 
-export const postUserCloth = async (data:CreateClothDto) => {
-  await axios.post(API_ROUTES.CREATE_USER_CLOTH, data)
-}
+export const postUserCloth = async (data: CreateClothDto) => {
+  await axios.post(API_ROUTES.CREATE_USER_CLOTH, data);
+};
+
+export const deleteUserCloth = async (clothId: bigint) => {
+  await axios.delete(API_ROUTES.DELETE_USER_CLOTH(Number(clothId)));
+};
