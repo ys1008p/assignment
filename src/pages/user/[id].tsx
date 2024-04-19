@@ -1,13 +1,16 @@
 import ClothsProvider from "@/components/ClothsProvider";
+import { useRouter } from "next/router";
+import ClothManager from "@/components/ClothManager";
 
 export default function User() {
-  return (
-    <>
-      <div className="flex justify-around  ">
-        <ClothsProvider />
-        <div>유저 캐릭터 목록</div>
-        <div>유저 의상 목록</div>
-      </div>
-    </>
-  );
+  const router = useRouter();
+  const { id } = router.query;
+
+  if (typeof id === "string") {
+    return (
+      <ClothManager id={id} />
+    );
+  }
+
+  return null;
 }

@@ -7,8 +7,6 @@ export default function ClothsProvider() {
     queryFn: () => getExcelClothData(),
   });
 
-  console.log(excelCloth);
-
   return (
     <div>
       <div>의상 지급기</div>

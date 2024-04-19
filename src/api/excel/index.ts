@@ -1,7 +1,7 @@
 import { API_ROUTES } from "@/constant/routes";
 import axios from "axios";
 
-export interface ClothData {
+export interface ExcelClothDto {
   index: bigint;
   createat: Date;
   updateat: Date;
@@ -19,5 +19,5 @@ export interface ClothData {
 
 export const getExcelClothData = async () => {
   const response = await axios.get(API_ROUTES.EXCEL_CLOTH);
-  return response.data as ClothData[];
+  return response.data as ExcelClothDto[];
 };
