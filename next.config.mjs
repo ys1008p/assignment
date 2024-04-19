@@ -9,6 +9,10 @@ const nextConfig = {
         source: "/api/:path*",
         destination: "https://assignment-be-phi.vercel.app/api/:path*",
       },
+      {
+        source: "/user/api/:path*",
+        destination: "https://assignment-be-phi.vercel.app/api/:path*",
+      },
     ];
   },
 };

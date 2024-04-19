@@ -15,6 +15,8 @@ export default function Home() {
     const data = await getUserData(id);
     if(data) {
       router.push(`/user/${data.id}`)
+    } else {
+      alert("아이디를 확인하세요.");
     }
 
   }
@@ -22,7 +24,7 @@ export default function Home() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label>아이디 입력</label>
+        <label className="text-7xl">아이디 입력</label>
         <input onChange={handleIdChange} className="" />
         <button>확인</button>
       </form>
