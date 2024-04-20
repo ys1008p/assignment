@@ -13,7 +13,7 @@ export default function Home() {
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = await getUserData(id);
-    if(data) {
+    if(data.id) {
       router.push(`/user/${data.id}`)
     } else {
       alert("아이디를 확인하세요.");
@@ -23,10 +23,10 @@ export default function Home() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label className="text-7xl">아이디 입력</label>
-        <input onChange={handleIdChange} className="" />
-        <button>확인</button>
+      <form className="w-[400px] m-auto h-[100px] flex justify-around items-center border-2 rounded-2xl mt-20" onSubmit={handleSubmit}>
+        <label className="text-2xl font-bold">아이디 입력</label>
+        <input className="border-2" onChange={handleIdChange} placeholder="woore-test-1" />
+        <button className="hover:text-red-300">확인</button>
       </form>
     </>
 
