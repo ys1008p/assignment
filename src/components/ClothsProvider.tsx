@@ -4,16 +4,24 @@ import { CreateClothDto, postUserCloth } from "@/api/users";
 type ClothsProviderProps = {
   excelCloth: ExcelClothDto[] | undefined,
   selectedCharacter: BigInt,
-  id: string
+  id: string,
+  handleClothInventoryToggle: () => void
 }
 
-export default function ClothsProvider({ excelCloth, selectedCharacter, id }: ClothsProviderProps) {
+export default function ClothsProvider(
+  {
+    excelCloth,
+    selectedCharacter,
+    id,
+    handleClothInventoryToggle,
+  }: ClothsProviderProps) {
   const filteredCloths = excelCloth?.filter(
     item => BigInt(item.ablecharacter) === selectedCharacter,
   );
 
-  const handlePostCloth = ({ characteruid, employerid, clothno, channel }: CreateClothDto) => {
-    postUserCloth({ characteruid, employerid, clothno, channel });
+  const handlePostCloth = async ({ characteruid, employerid, clothno, channel }: CreateClothDto) => {
+    await postUserCloth({ characteruid, employerid, clothno, channel });
+    handleClothInventoryToggle();
   };
 
   return (

@@ -1,12 +1,14 @@
 import { ClothInventoryDto, deleteUserCloth } from "@/api/users";
 
 type ClothInventoryProps = {
-  clothInventory: ClothInventoryDto[] | undefined
+  clothInventory: ClothInventoryDto[] | undefined,
+  handleClothInventoryToggle: ()=>void,
 }
 
-export default function ClothInventory({ clothInventory }: ClothInventoryProps) {
-  const handleDeleteItem = (clothId: bigint) => {
-    deleteUserCloth(clothId);
+export default function ClothInventory({ clothInventory,handleClothInventoryToggle }: ClothInventoryProps) {
+  const handleDeleteItem = async (clothId: bigint) => {
+    await deleteUserCloth(clothId);
+    handleClothInventoryToggle();
   };
 
   return (
@@ -17,7 +19,7 @@ export default function ClothInventory({ clothInventory }: ClothInventoryProps) 
           return (
             <li key={item.id}>
               <span>{item.excelCloth?.name}</span>
-              <button onClick={()=>deleteUserCloth(BigInt(item.id))}>삭제</button>
+              <button onClick={()=>handleDeleteItem(BigInt(item.id))}>삭제</button>
             </li>
           );
         })}

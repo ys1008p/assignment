@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { getClothInventory, getUserCharacters } from "@/api/users";
 import ClothInventory from "@/components/ClothInventory";
 import { getExcelClothData } from "@/api/excel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type ClothManagerProps = {
   id: string;
@@ -12,8 +12,14 @@ type ClothManagerProps = {
 
 export default function ClothManager({ id }: ClothManagerProps) {
   const [selectedCharacter, setSelectedCharacter] = useState<BigInt>(BigInt(0));
+  const [clothInventoryToggle, setClothInventoryToggle] = useState(false);
+
   const handleSelectedCharacter = (id: BigInt) => {
     setSelectedCharacter(id);
+  };
+
+  const handleClothInventoryToggle = () => {
+    setClothInventoryToggle(!clothInventoryToggle);
   };
 
   const { data: userCharacters, isLoading: isLoadingUserCharacters } = useQuery({
@@ -26,19 +32,21 @@ export default function ClothManager({ id }: ClothManagerProps) {
     queryFn: () => getExcelClothData(),
   });
 
-  const { data: clothInventory, isLoading: isLoadingClothInventory } = useQuery({
+  const { data: clothInventory, isLoading: isLoadingClothInventory,refetch: refetchClothInventory } = useQuery({
     queryKey: ["clothInventory"],
     queryFn: () => getClothInventory(Number(id)),
   });
 
-  const isLoading = isLoadingClothInventory && isLoadingExcelCloth && isLoadingUserCharacters;
+  useEffect(() => {
+    refetchClothInventory();
+  }, [clothInventoryToggle]);
 
   return (
-    isLoading ? null :
       <div className="flex justify-around">
-        <UserCharacters userCharacters={userCharacters} handleSelectedCharacter={handleSelectedCharacter} selectedCharacter={selectedCharacter} />
-        <ClothsProvider excelCloth={excelCloth} selectedCharacter={selectedCharacter} id={id} />
-        <ClothInventory clothInventory={clothInventory} />
+        <UserCharacters userCharacters={userCharacters} handleSelectedCharacter={handleSelectedCharacter}
+                        selectedCharacter={selectedCharacter} />
+        <ClothsProvider excelCloth={excelCloth} selectedCharacter={selectedCharacter} id={id} handleClothInventoryToggle={handleClothInventoryToggle} />
+        {!isLoadingClothInventory && < ClothInventory clothInventory={clothInventory} handleClothInventoryToggle={handleClothInventoryToggle} />}
       </div>
   );
 }
