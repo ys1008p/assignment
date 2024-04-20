@@ -42,7 +42,7 @@ export default function ClothManager({ id }: ClothManagerProps) {
   }, [clothInventoryToggle]);
 
   return (
-    <div className="flex justify-around">
+    <div className="py-8 m-auto rounded-2xl w-[800px] flex justify-around mt-[100px] border-2">
       <UserCharacters userCharacters={userCharacters} handleSelectedCharacter={handleSelectedCharacter}
                       selectedCharacter={selectedCharacter} />
       <ClothsProvider excelCloth={excelCloth} selectedCharacter={selectedCharacter} id={id}

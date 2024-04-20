@@ -17,16 +17,16 @@ export default function UserCharacters(
   }: UserCharacterProps,
 ) {
   return (
-    <div>
-      <div>유저 캐릭터 목록</div>
-      <ul>
+    <div className="w-[200px] text-center">
+      <div className="font-bold py-3">유저 캐릭터 목록</div>
+      <ul className="flex flex-col gap-1">
         {
           userCharacters?.map((item: CharacterDto) => {
             return (
               <li key={item.id}>
                 <span
                   onClick={() => handleSelectedCharacter(BigInt(item.characterindex))}
-                  className={selectedCharacter === BigInt(item.characterindex) ? `text-red-500` : `text-black`}>
+                  className={selectedCharacter === BigInt(item.characterindex) ? `text-red-500 cursor-pointer hover:text-red-300` : `text-black cursor-pointer hover:text-red-300`}>
                   {item.excelBaller.name}
                 </span>
               </li>
