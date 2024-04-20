@@ -55,6 +55,12 @@ export interface CreateClothDto {
   channel: number;
 }
 
+export interface UpdateClothDto {
+  characteruid?: number; //bigint
+  isequiped?: boolean;
+  islock?: boolean;
+}
+
 export const getUserData = async (userId: string) => {
   const response = await axios.get(API_ROUTES.USER_BY_ID(userId));
   return response.data as UserDto;
@@ -75,5 +81,9 @@ export const postUserCloth = async (data: CreateClothDto) => {
 };
 
 export const deleteUserCloth = async (clothId: bigint) => {
-  await axios.delete(API_ROUTES.DELETE_USER_CLOTH(Number(clothId)));
+  await axios.delete(API_ROUTES.MODIFY_USER_CLOTH(Number(clothId)));
+};
+
+export const updateUserCloth = async (clothId: bigint, data: UpdateClothDto) => {
+  await axios.patch(API_ROUTES.MODIFY_USER_CLOTH(Number(clothId)), data);
 };

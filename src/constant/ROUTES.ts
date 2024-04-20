@@ -5,5 +5,5 @@ export const API_ROUTES = {
 
   USER_CLOTHS_BY_ID: (employerId: number) => `api/users/${employerId}/cloths`,
   CREATE_USER_CLOTH:`api/users/cloths`,
-  DELETE_USER_CLOTH: (clothId: number) => `api/users/cloths/${clothId}`,
+  MODIFY_USER_CLOTH: (clothId: number) => `api/users/cloths/${clothId}`,
 };

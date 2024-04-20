@@ -20,7 +20,7 @@ export default function ClothsProvider(
   );
 
   const handlePostCloth = async ({ characteruid, employerid, clothno, channel }: CreateClothDto) => {
-    await postUserCloth({ characteruid, employerid, clothno, channel });
+    await   postUserCloth({ characteruid, employerid, clothno, channel });
     handleClothInventoryToggle();
   };
 

@@ -32,7 +32,7 @@ export default function ClothManager({ id }: ClothManagerProps) {
     queryFn: () => getExcelClothData(),
   });
 
-  const { data: clothInventory, isLoading: isLoadingClothInventory,refetch: refetchClothInventory } = useQuery({
+  const { data: clothInventory, isLoading: isLoadingClothInventory, refetch: refetchClothInventory } = useQuery({
     queryKey: ["clothInventory"],
     queryFn: () => getClothInventory(Number(id)),
   });
@@ -42,11 +42,12 @@ export default function ClothManager({ id }: ClothManagerProps) {
   }, [clothInventoryToggle]);
 
   return (
-      <div className="flex justify-around">
-        <UserCharacters userCharacters={userCharacters} handleSelectedCharacter={handleSelectedCharacter}
-                        selectedCharacter={selectedCharacter} />
-        <ClothsProvider excelCloth={excelCloth} selectedCharacter={selectedCharacter} id={id} handleClothInventoryToggle={handleClothInventoryToggle} />
-        {!isLoadingClothInventory && < ClothInventory clothInventory={clothInventory} handleClothInventoryToggle={handleClothInventoryToggle} />}
-      </div>
+    <div className="flex justify-around">
+      <UserCharacters userCharacters={userCharacters} handleSelectedCharacter={handleSelectedCharacter}
+                      selectedCharacter={selectedCharacter} />
+      <ClothsProvider excelCloth={excelCloth} selectedCharacter={selectedCharacter} id={id}
+                      handleClothInventoryToggle={handleClothInventoryToggle} />
+      <ClothInventory clothInventory={clothInventory} handleClothInventoryToggle={handleClothInventoryToggle} />
+    </div>
   );
 }
